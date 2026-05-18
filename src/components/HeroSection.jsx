@@ -153,10 +153,10 @@ export default function HeroSection() {
           {/* Left — Text */}
           <div className="order-2 lg:order-1 text-center lg:text-left">
             {/* Label */}
-            <motion.div variants={itemVariants} className="flex items-center gap-2 justify-center lg:justify-start mb-5">
-              <div className="h-px w-4 sm:w-8 bg-[#FF7A3D] shrink-0"/>
-              <span className="section-tag sm:whitespace-nowrap">Mechatronics And Automation · IIIT Bhagalpur</span>
-              <div className="h-px w-4 sm:w-8 bg-[#FF7A3D] shrink-0"/>
+            <motion.div variants={itemVariants} className="flex items-center gap-1 sm:gap-2 justify-center lg:justify-start mb-5 px-2 sm:px-0">
+              <div className="h-px w-2 sm:w-8 bg-[#FF7A3D] shrink-0"/>
+              <span className="section-tag text-[9px] sm:text-xs sm:whitespace-nowrap">Mechatronics And Automation · IIIT Bhagalpur</span>
+              <div className="h-px w-2 sm:w-8 bg-[#FF7A3D] shrink-0"/>
             </motion.div>
 
             {/* Name block — comic panel style */}

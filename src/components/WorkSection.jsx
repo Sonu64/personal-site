@@ -38,11 +38,11 @@ function ProjectCard({ project, index, isDark }) {
           isDark ? "bg-[#161616]" : "bg-[#EDE8DC]"
         } ${project.placeholder ? "opacity-60" : ""} relative overflow-hidden p-6 transition-all duration-300`}>
 
-          <div className="absolute top-0 right-0 font-mono text-[64px] font-bold text-[#1E1E1E] leading-none select-none pointer-events-none">
+          <div className="absolute top-0 right-0 font-mono text-[64px] font-bold text-[#1E1E1E] leading-none select-none pointer-events-none z-0">
             {String(project.id).padStart(2, "0")}
           </div>
 
-          <div className="flex items-center justify-between mb-4">
+          <div className="relative z-10 flex items-center justify-between mb-4">
             <span className="font-mono text-[10px] px-2 py-1 border"
               style={{ color: statusColors[project.status], borderColor: statusColors[project.status] + "66", background: statusColors[project.status] + "10" }}>
               {project.status}
