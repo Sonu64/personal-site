@@ -17,7 +17,7 @@ export const timelineEvents = [
     title: "The Comeback",
     date: "2025",
     description:
-      "It took me and my closed ones more than 2.5 years to comeback properly. I forgot a lot of my Engg. Subjects, Let alone Robotics, I couldn't even solve a basic Array problem. But Life gave me a 2nd chance and I decided to make the most out of it. I pursued CS50, Started Solving Coding Problems using Java and also learnt quite some amount of Fullstack Development using Flask and Django. But who knew then, the main 'Aha' moment was yet to come..",
+      "It took me and my closed ones more than 2.5 years to comeback properly. I forgot a lot of my Engg. Subjects. Let alone Robotics, I couldn't even solve a basic Array problem. But Life gave me a 2nd chance and I decided to make the most out of it. I pursued CS50, Started Solving Coding Problems using Java and also learnt quite some amount of Fullstack Development using Flask and Django. But who knew then, the main 'Aha' moment was yet to come..",
     icon: "🎓",
     color: "orange",
     type: "milestone",
