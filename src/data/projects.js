@@ -1,0 +1,36 @@
+// src/data/projects.js
+export const projects = [
+  {
+    id: 1,
+    title: "Fundwarden: A Budget Allocation and Expense Tracking Application",
+    description: "Developed as my CS50 Final Project, this is a comprehensive web application for managing personal finances. Features robust budget allocation and intuitive expense tracking.",
+    tags: ["Fullstack", "Flask", "JavaScript", "PostgreSQL", "CSS", "Docker", "Render"],
+    category: "Software",
+    status: "Completed",
+    github: "https://github.com",
+    demo: "https://example.com",
+    highlight: false,
+  },
+  {
+    id: 2,
+    title: "Project Landing Soon...",
+    description: "Currently engineering something exciting at the intersection of hardware, ROS2, and advanced control systems. Stay tuned for a complete technical teardown.",
+    tags: ["Robotics", "ROS2", "Hardware", "In Development"],
+    category: "Robotics",
+    status: "In Progress",
+    github: null,
+    demo: null,
+    highlight: true,
+  },
+  {
+    id: 3,
+    title: "Robotics Learning Repository",
+    description: "A comprehensive repository built while learning ROS-2, mechanics, and electronics. Features ROS-2 nodes, C++/Python scripts, and handwritten study notes for continuous reference.",
+    tags: ["ROS-2", "C++", "Python", "Mechanics", "Electronics", "Notes"],
+    category: "Learning",
+    status: "Continuous Progress",
+    github: "https://github.com",
+    demo: null,
+    highlight: false,
+  },
+];

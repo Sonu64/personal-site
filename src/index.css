@@ -1,0 +1,305 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Caveat:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Robot float — runs on compositor thread, not JS */
+@keyframes robot-float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
+}
+@keyframes blink-ant  { 0%,100%{opacity:1} 50%{opacity:.3} }
+@keyframes pulse-eye  { 0%,100%{opacity:1} 50%{opacity:.5} }
+@keyframes flash-mouth{ 0%,100%{opacity:1} 50%{opacity:.4} }
+@keyframes ring-expand{ 0%,100%{transform:scale(1)} 50%{transform:scale(1.38)} }
+
+.robot-float  { animation: robot-float 4s ease-in-out infinite; will-change: transform; }
+.svg-ant      { animation: blink-ant   1.5s ease-in-out infinite; }
+.svg-eye1     { animation: pulse-eye  2.5s ease-in-out infinite; }
+.svg-eye2     { animation: pulse-eye  2.5s ease-in-out .3s infinite; }
+.svg-mouth    { animation: flash-mouth .8s  ease-in-out infinite; }
+.svg-ring     { animation: ring-expand 2s   ease-in-out infinite; transform-origin: 129px 143px; }
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scrollbar-width: thin;
+    scrollbar-color: #FF7A3D #161616;
+    /* Scale down base font size on mobile for all sections */
+    font-size: 14px;
+    overflow-x: hidden;
+  }
+
+  /* Restore to normal on sm+ screens */
+  @media (min-width: 640px) {
+    html {
+      font-size: 16px;
+    }
+  }
+
+  html::-webkit-scrollbar {
+    width: 6px;
+  }
+  html::-webkit-scrollbar-track {
+    background: #161616;
+  }
+  html::-webkit-scrollbar-thumb {
+    background: #FF7A3D;
+    border-radius: 3px;
+  }
+
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background-color: #0C0C0C;
+    color: #FAF7F0;
+    overflow-x: hidden;
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+
+  body.light {
+    background-color: #F5F0E8;
+    color: #1A1A2E;
+    scrollbar-color: #FF7A3D #EDE8DC;
+  }
+
+  ::selection {
+    background: rgba(255, 122, 61, 0.3);
+    color: #FAF7F0;
+  }
+}
+
+@layer components {
+  /* === COMIC BORDER UTILITY === */
+  .comic-border {
+    border: 2px solid #333333;
+    box-shadow: 4px 4px 0px #333333;
+  }
+
+  .comic-border-orange {
+    border: 2px solid #FF7A3D;
+    box-shadow: 4px 4px 0px #FF7A3D;
+  }
+
+  .comic-border-mint {
+    border: 2px solid #7EC8A4;
+    box-shadow: 4px 4px 0px #7EC8A4;
+  }
+
+  .comic-border-lilac {
+    border: 2px solid #B48EE0;
+    box-shadow: 4px 4px 0px #B48EE0;
+  }
+
+  /* Light mode overrides for comic border */
+  .light .comic-border {
+    border-color: #C8BFA8;
+    box-shadow: 4px 4px 0px #C8BFA8;
+  }
+
+  /* === SECTION CONTAINER === */
+  .section-container {
+    @apply max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* === SECTION HEADING === */
+  .section-heading {
+    @apply font-display font-bold text-3xl sm:text-4xl lg:text-5xl;
+    line-height: 1.1;
+  }
+
+  .section-tag {
+    @apply font-mono text-sm font-medium tracking-widest uppercase;
+    color: #FF7A3D;
+  }
+
+  /* === SKILL BAR (energy meter) === */
+  .skill-bar-track {
+    @apply w-full rounded-none h-3 relative overflow-hidden;
+    background: #1E1E1E;
+    border: 1px solid #333;
+  }
+
+  .skill-bar-fill {
+    @apply h-full rounded-none relative;
+    background: linear-gradient(90deg, #FF7A3D, #B48EE0);
+    transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .skill-bar-fill::after {
+    content: '';
+    @apply absolute inset-0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+    animation: shimmer 2s linear infinite;
+    background-size: 200% 100%;
+  }
+
+  /* === SHIMMER CARD === */
+  .shimmer-card {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 122, 61, 0.08),
+      rgba(180, 142, 224, 0.08),
+      transparent
+    );
+    transition: left 0.6s ease;
+  }
+
+  .shimmer-card:hover::after {
+    left: 150%;
+  }
+
+  /* === SPEECH BUBBLE === */
+  .speech-bubble {
+    @apply relative p-4 rounded-none;
+    background: #161616;
+    border: 2px solid #333;
+    box-shadow: 4px 4px 0px #333;
+  }
+
+  .speech-bubble::before {
+    content: '';
+    position: absolute;
+    bottom: -12px;
+    left: 28px;
+    width: 0; height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 12px solid #333;
+  }
+
+  .speech-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -9px;
+    left: 30px;
+    width: 0; height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 10px solid #161616;
+  }
+
+  /* === GRAIN OVERLAY === */
+  .grain-overlay {
+    position: relative;
+  }
+
+  .grain-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* === SCROLL PROGRESS BAR === */
+  .scroll-progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #FF7A3D, #B48EE0);
+    z-index: 9999;
+    transition: width 0.1s linear;
+  }
+
+  /* === TAG / BADGE === */
+  .tech-tag {
+    @apply inline-block font-mono text-xs px-2 py-1;
+    border: 1px solid #333;
+    color: #7EC8A4;
+    background: rgba(126, 200, 164, 0.06);
+  }
+
+  .tech-tag-orange {
+    border-color: rgba(255,122,61,0.4);
+    color: #FF7A3D;
+    background: rgba(255,122,61,0.06);
+  }
+
+  /* === CHAPTER LABEL === */
+  .chapter-label {
+    @apply font-hand text-2xl font-bold;
+    color: #FF7A3D;
+    text-shadow: 2px 2px 0px rgba(255,122,61,0.2);
+  }
+
+  /* === LIGHT MODE OVERRIDES === */
+  .light .speech-bubble {
+    background: #EDE8DC;
+    border-color: #C8BFA8;
+    box-shadow: 4px 4px 0px #C8BFA8;
+  }
+  .light .speech-bubble::before {
+    border-top-color: #C8BFA8;
+  }
+  .light .speech-bubble::after {
+    border-top-color: #EDE8DC;
+  }
+
+  .light .skill-bar-track {
+    background: #DDD8CC;
+    border-color: #C8BFA8;
+  }
+
+  .light .tech-tag {
+    border-color: #C8BFA8;
+    color: #5AA880;
+    background: rgba(90,168,128,0.08);
+  }
+
+  .light .tech-tag-orange {
+    color: #CC5F28;
+    background: rgba(204,95,40,0.08);
+  }
+}
+
+@layer utilities {
+  .text-gradient-orange {
+    background: linear-gradient(135deg, #FF7A3D, #B48EE0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-mint {
+    background: linear-gradient(135deg, #7EC8A4, #B48EE0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .bg-surface {
+    background: #161616;
+  }
+
+  .light .bg-surface {
+    background: #EDE8DC;
+  }
+
+  .border-ink {
+    border-color: #333333;
+  }
+
+  .light .border-ink {
+    border-color: #C8BFA8;
+  }
+}
