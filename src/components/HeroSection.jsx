@@ -186,7 +186,7 @@ export default function HeroSection() {
               className={`font-display text-base leading-relaxed mb-8 max-w-lg mx-auto lg:mx-0 ${
                 isDark ? "text-[#888]" : "text-[#555]"
               }`}
-            >
+            >This is <span className="text-[#FFD700] text-xl sm:text-xl font-bold">Sourakanti Mandal</span>, 
               Studying the intersection of{" "}
               <span className="text-[#FF7A3D] font-medium">Mechanical Systems</span>,{" "}
               <span className="text-[#7EC8A4] font-medium">Software Engineering</span>, and{" "}
