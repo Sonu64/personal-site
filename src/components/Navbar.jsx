@@ -27,22 +27,46 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Scroll spy
+  const handleNavClick = (href) => {
+    const sectionId = href.replace("#", "");
+    setActiveSection(sectionId);
+    setMobileOpen(false);
+    // Use a small delay to allow the menu to close before scrolling
+    setTimeout(() => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 100);
+  };
+
+  // Scroll spy using scroll event
   useEffect(() => {
-    const sections = navLinks.map((l) => l.href.replace("#", ""));
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveSection(entry.target.id);
-        });
-      },
-      { rootMargin: "-40% 0px -55% 0px" }
-    );
-    sections.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
+    const handleScroll = () => {
+      const sections = navLinks.map((l) => l.href.replace("#", ""));
+      let currentSection = "home";
+      
+      for (const id of sections) {
+        const element = document.getElementById(id);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          // Check if section is in the upper half of the viewport
+          if (rect.top <= window.innerHeight / 2) {
+            currentSection = id;
+          } else {
+            break;
+          }
+        }
+      }
+      
+      setActiveSection(currentSection);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    // Initial check
+    handleScroll();
+    
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
@@ -85,7 +109,11 @@ export default function Navbar() {
                 <a
                   key={link.href}
                   href={link.href}
-                  className={`font-mono text-sm px-3 py-1.5 tracking-wider uppercase transition-all duration-200 relative group ${
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(link.href);
+                  }}
+                  className={`font-mono text-sm px-3 py-1.5 tracking-wider uppercase transition-all duration-200 relative group cursor-pointer ${
                     activeSection === link.href.replace("#", "")
                       ? "text-[#FF7A3D]"
                       : isDark
@@ -151,8 +179,11 @@ export default function Navbar() {
                   <a
                     key={link.href}
                     href={link.href}
-                    onClick={() => setMobileOpen(false)}
-                    className={`font-mono text-sm px-3 py-2.5 tracking-wider uppercase border-l-2 transition-all duration-200 ${
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(link.href);
+                    }}
+                    className={`font-mono text-sm px-3 py-2.5 tracking-wider uppercase border-l-2 transition-all duration-200 cursor-pointer ${
                       activeSection === link.href.replace("#", "")
                         ? "border-[#FF7A3D] text-[#FF7A3D] bg-[#FF7A3D]/5"
                         : "border-transparent text-[#888] hover:text-[#FAF7F0] hover:border-[#333]"
